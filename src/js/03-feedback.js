@@ -26,11 +26,22 @@ function onFormSubmit(e) {
   localStorage.removeItem(STORAGE_KEY);
 }
 
+// function populateForm() {
+//   if (localStorage.getItem(STORAGE_KEY)) {
+//     formEl.email.value = JSON.parse(localStorage.getItem(STORAGE_KEY)).email;
+//     formEl.message.value = JSON.parse(
+//       localStorage.getItem(STORAGE_KEY)
+//     ).message;
+//   }
+// }
+
 function populateForm() {
-  if (localStorage.getItem(STORAGE_KEY)) {
-    formEl.email.value = JSON.parse(localStorage.getItem(STORAGE_KEY)).email;
-    formEl.message.value = JSON.parse(
-      localStorage.getItem(STORAGE_KEY)
-    ).message;
+  const preForm = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  if (preForm) {
+    const inputNames = Object.keys(preForm);
+    inputNames.forEach(inputName => {
+      const input = formEl.elements[inputName];
+      input.value = preForm[inputName];
+    });
   }
 }
